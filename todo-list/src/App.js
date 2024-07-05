@@ -11,7 +11,7 @@ function TasksPanel({ tasks }) {
   );
 }
 
-function Tasks({ text }) {
+function Tasks({ text,ondelete }) {
   const [hover,sethover] = useState(true)
   const [complete,setcomplete] = useState(false)
   const style = {
@@ -28,15 +28,27 @@ function Tasks({ text }) {
   const txtstyle = {
     color: "#888", 
     textDecoration: "line-through", 
-    backgroundColor: "#f4f4f4",
+
     padding: "5px",
-    borderRadius: "3px",
     fontStyle: "italic"
+  }
+  const handledel = ()=>{
+    console.log({text})
+    ondelete({text})
   }
 
   return (
-    <div style={style} onMouseEnter={()=>sethover(false)} onMouseLeave={()=>sethover(true)} onClick={()=>setcomplete(true)}>
-      <h1 style={complete?txtstyle:{}}>{text}</h1>
+    <div style={{
+      display:"flex",
+      flexDirection:"row",
+      alignItems:"center",
+      justifyContent:"space-evenly"
+    }}>
+    <div style={style} onMouseEnter={()=>sethover(false)} onMouseLeave={()=>sethover(true)} onClick={()=>setcomplete(!complete)}>
+      <h1 style={complete?txtstyle:{}}>{text}
+      </h1>
+    </div>
+        <button onClick={handledel}>delete</button>
     </div>
   );
 }
